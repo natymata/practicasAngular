@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Prácticas Angular</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body ng-app="myApp" ng-controller="myCtrl">
+	<section>
+		<h3>Sincronizacion mediante $scope</h3>
+		<input type="text" ng-model="nombre">
+		{{"Hola " + nombre}}
+	</section>
+
+	<section>
+		<h3>Formulario para agregar comentarios</h3>
+		<form ng-submit="agregarComentario()">
+			<div class="form-control">
+				<label>Comentario: <input type="text" ng-model="nuevoComentario.comentario"></label>
+			</div>
+			<div class="form-control">
+				<label>Username: <input type="text" ng-model="nuevoComentario.username"></label>
+			</div>
+			<input type="submit" value="Enviar">
+		</form>
+	</section>
+	
+	<section>
+		<h3>Mostrar Todos los Comentarios</h3>
+		<ul>
+			<li ng-repeat="comentario in comentarios track by $index">
+				{{comentario.id}}. <strong>{{comentario.username}}</strong> - {{comentario.comentario}}.
+			</li>
+		</ul>
+	</section>
+
+	<section>
+		<h3>Comentarios filtrados por id</h3>
+		<ul>
+			<li ng-repeat="comentario in comentarios | filter: {id:route}">
+				{{comentario.id}}. <strong>{{comentario.username}}</strong> - {{comentario.comentario}}.
+			</li>
+	</section>
+
+	<section ng-controller="toDoCtrl">
+		<h3>To Do List</h3>
+		<form ng-submit="agregarAct()">
+			<div class="form-control">
+				<label>Actividad: <input type="text" ng-model= "nuevaAct.actividad" required></label>
+			</div>
+			<div class="form-control">
+				<label>Descripción: <textarea ng-model="nuevaAct.descripcion" cols="10" rows="4"></textarea></label>
+			</div>
+			<div class="form-control">
+	 			<label>Fecha: <input type="date" ng-model="nuevaAct.fecha"></label>
+			</div>
+			<input type="submit" value="Enviar">
+		</form>
+		<h3>Lista de actividades</h3>
+		<ul>
+		<p ng-show= "toDos.length>0">Total pendientes: {{toDos.length}}</p>
+		<p ng-show="toDos.length<1">No hay pendientes.</p>
+			<li ng-repeat="todo in toDos track by $index"><input type="checkbox" ng-model="todo.done" ng-click= "actualEstado(todo)"><span ng-class="{'done' : todo.done}">
+				{{todo.id}}. <strong>{{todo.actividad}}:</strong> {{todo.descripcion}}. <br>Fecha límite: {{todo.fecha | date: 'EEE - d/MMM/yy'}}.</span><br>Estado: {{todo.estado}}.
+
+			</li>
+		</ul>
+		<input type="button" ng-click="clearDone()" value="Borrar completados">
+		<input type="button" ng-click="clearAll()" value="Limpiar Todo">
+	</section>
+	
+	<script src="js/angular.min.js"></script>
+	<script src="js/logic.js"></script>
+</body>
+</html>

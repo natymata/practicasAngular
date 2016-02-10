@@ -1,0 +1,22 @@
+body{
+	width: 600px;
+	margin: 0 auto;
+}
+
+
+section{
+	padding: 10px 0;
+}
+
+.form-control{
+	margin: 10px 0;
+}   
+
+input[type="text"], textarea{
+	width: 200px;
+}
+
+.done{
+	text-decoration: line-through;
+	color: #ccc;
+}
